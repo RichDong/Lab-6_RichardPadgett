@@ -18,7 +18,15 @@ public class Universo {
     private File archivo = null;
 
     public Universo() {
-        ;
+        
+    }
+
+    public File getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(File archivo) {
+        this.archivo = archivo;
     }
 
     public Universo(String nombre, String path ) {
@@ -46,6 +54,9 @@ public class Universo {
     public String toString() {
         return "Universo{" + "nombre=" + nombre + ", sv=" + sv + '}';
     }
+    public void setArchivo(Seres_vivos s){
+        this.sv.add(s);
+    }
 
     public void AbrirArchivo() {
         File f = null;
@@ -69,6 +80,7 @@ public class Universo {
         } catch (Exception e) {
         }
     }
+    
 
     public void Escribirarchivo() {
         FileWriter fw = null;
@@ -79,7 +91,7 @@ public class Universo {
             for (Seres_vivos s : sv) {
                 bw.write(s.getRaza() + "|");
                 bw.write(s.getKi() + "|");
-                bw.write(s.getKi() + "|");
+                bw.write(s.getEdad()+ "|");
                 bw.write(s.getPlaneta() + "|");
 
             }

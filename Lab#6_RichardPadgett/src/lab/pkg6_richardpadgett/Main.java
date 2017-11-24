@@ -5,10 +5,15 @@
  */
 package lab.pkg6_richardpadgett;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -23,7 +28,7 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         jmi_crearseresi.setEnabled(false);
         jmi_Modificarseres.setEnabled(false);
-        
+
     }
 
     /**
@@ -59,14 +64,14 @@ public class Main extends javax.swing.JFrame {
         jd_abrirarchivo = new javax.swing.JDialog();
         jScrollPane2 = new javax.swing.JScrollPane();
         ta_archivo = new javax.swing.JTextArea();
+        jb_cargar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        jb_guardarU = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmi_crearUniverso = new javax.swing.JMenuItem();
         jmi_crearseresi = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
         jmi_Modificarseres = new javax.swing.JMenuItem();
         jmi_salir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -235,13 +240,20 @@ public class Main extends javax.swing.JFrame {
         ta_archivo.setRows(5);
         jScrollPane2.setViewportView(ta_archivo);
 
+        jb_cargar.setText("Cargar Archivo");
+
         javax.swing.GroupLayout jd_abrirarchivoLayout = new javax.swing.GroupLayout(jd_abrirarchivo.getContentPane());
         jd_abrirarchivo.getContentPane().setLayout(jd_abrirarchivoLayout);
         jd_abrirarchivoLayout.setHorizontalGroup(
             jd_abrirarchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jd_abrirarchivoLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jd_abrirarchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jd_abrirarchivoLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jd_abrirarchivoLayout.createSequentialGroup()
+                        .addGap(146, 146, 146)
+                        .addComponent(jb_cargar)))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
         jd_abrirarchivoLayout.setVerticalGroup(
@@ -249,7 +261,9 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jd_abrirarchivoLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jb_cargar)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -259,10 +273,10 @@ public class Main extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\richa\\Downloads\\New_Goku.jpg")); // NOI18N
         jLabel2.setText("jLabel2");
 
-        jButton2.setText("Guardar Universo");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jb_guardarU.setText("Guardar Universo");
+        jb_guardarU.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                jb_guardarUMouseClicked(evt);
             }
         });
 
@@ -288,9 +302,6 @@ public class Main extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jmi_crearseresi);
-
-        jMenuItem3.setText("Guardar Universo");
-        jMenu1.add(jMenuItem3);
 
         jmi_Modificarseres.setText("Modificar y Eliminar Seres");
         jmi_Modificarseres.addActionListener(new java.awt.event.ActionListener() {
@@ -323,7 +334,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jb_guardarU, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(99, 99, 99)
                         .addComponent(jLabel1)))
@@ -337,7 +348,7 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(125, 125, 125)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jb_guardarU, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 866, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -354,7 +365,7 @@ public class Main extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Universo Creado Exitosamente");
         jd_crearuniverso.dispose();
         jmi_crearUniverso.setEnabled(false);
-        jmi_crearseresi.setEnabled(false);
+        jmi_crearseresi.setEnabled(true);
 
 
     }//GEN-LAST:event_jb_guardaruniversoMouseClicked
@@ -424,16 +435,24 @@ public class Main extends javax.swing.JFrame {
         int select = jl_seres.getSelectedIndex();
     }//GEN-LAST:event_jButton3MouseClicked
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-      
-    }//GEN-LAST:event_jButton2MouseClicked
+    private void jb_guardarUMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_guardarUMouseClicked
+    JFileChooser jfc = new JFileChooser();
+    jfc.setSelectedFile(new File(U.getNombre()+".txt"));
+    int select = jfc.showSaveDialog(this);
+        if (select == JFileChooser.APPROVE_OPTION) {
+            File f = jfc.getSelectedFile();
+            U.setArchivo(f);
+            U.Escribirarchivo();
+            
+        }
+    }//GEN-LAST:event_jb_guardarUMouseClicked
 
     private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
-    jd_abrirarchivo.setModal(true);
-    jd_abrirarchivo.pack();
-    jd_abrirarchivo.setLocationRelativeTo(this);
-    jd_abrirarchivo.setVisible(true);
-       
+        jd_abrirarchivo.setModal(true);
+        jd_abrirarchivo.pack();
+        jd_abrirarchivo.setLocationRelativeTo(this);
+        jd_abrirarchivo.setVisible(true);
+
     }//GEN-LAST:event_jMenu2ActionPerformed
 
     /**
@@ -472,7 +491,6 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -486,10 +504,11 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jb_cargar;
     private javax.swing.JButton jb_crearser;
+    private javax.swing.JButton jb_guardarU;
     private javax.swing.JButton jb_guardaruniverso;
     private javax.swing.JButton jb_modificar;
     private javax.swing.JDialog jd_abrirarchivo;
@@ -509,5 +528,5 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField tf_raza;
     // End of variables declaration//GEN-END:variables
     Universo U = new Universo();
-
+    File select;
 }

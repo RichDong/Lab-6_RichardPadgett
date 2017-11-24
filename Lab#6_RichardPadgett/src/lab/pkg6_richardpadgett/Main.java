@@ -20,6 +20,8 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+        jmi_crearseresi.setEnabled(false);
+        jmi_Modificarseres.setEnabled(false);
     }
 
     /**
@@ -46,10 +48,10 @@ public class Main extends javax.swing.JFrame {
         jb_crearser = new javax.swing.JButton();
         jsp_ki = new javax.swing.JSpinner();
         jsp_edad = new javax.swing.JSpinner();
-        jd_eliminarseres = new javax.swing.JDialog();
+        jd_modificarseres = new javax.swing.JDialog();
         jScrollPane1 = new javax.swing.JScrollPane();
         jl_seres = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
+        jb_modificar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -60,7 +62,7 @@ public class Main extends javax.swing.JFrame {
         jmi_crearUniverso = new javax.swing.JMenuItem();
         jmi_crearseresi = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jmi_Eliminarseres = new javax.swing.JMenuItem();
+        jmi_Modificarseres = new javax.swing.JMenuItem();
 
         jLabel3.setText("CREAR UNIVERSO");
 
@@ -173,42 +175,52 @@ public class Main extends javax.swing.JFrame {
         jl_seres.setModel(new DefaultListModel());
         jScrollPane1.setViewportView(jl_seres);
 
-        jButton1.setText("Modificar");
+        jb_modificar.setText("Modificar");
+        jb_modificar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jb_modificarMouseClicked(evt);
+            }
+        });
 
         jButton3.setText("Eliminar");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
 
         jLabel5.setText("Lista de Seres");
 
-        javax.swing.GroupLayout jd_eliminarseresLayout = new javax.swing.GroupLayout(jd_eliminarseres.getContentPane());
-        jd_eliminarseres.getContentPane().setLayout(jd_eliminarseresLayout);
-        jd_eliminarseresLayout.setHorizontalGroup(
-            jd_eliminarseresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jd_eliminarseresLayout.createSequentialGroup()
-                .addGroup(jd_eliminarseresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jd_eliminarseresLayout.createSequentialGroup()
+        javax.swing.GroupLayout jd_modificarseresLayout = new javax.swing.GroupLayout(jd_modificarseres.getContentPane());
+        jd_modificarseres.getContentPane().setLayout(jd_modificarseresLayout);
+        jd_modificarseresLayout.setHorizontalGroup(
+            jd_modificarseresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_modificarseresLayout.createSequentialGroup()
+                .addGroup(jd_modificarseresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jd_modificarseresLayout.createSequentialGroup()
                         .addGap(110, 110, 110)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jd_eliminarseresLayout.createSequentialGroup()
+                    .addGroup(jd_modificarseresLayout.createSequentialGroup()
                         .addGap(171, 171, 171)
                         .addComponent(jButton3)
                         .addGap(46, 46, 46)
-                        .addComponent(jButton1))
-                    .addGroup(jd_eliminarseresLayout.createSequentialGroup()
-                        .addGap(257, 257, 257)
+                        .addComponent(jb_modificar))
+                    .addGroup(jd_modificarseresLayout.createSequentialGroup()
+                        .addGap(240, 240, 240)
                         .addComponent(jLabel5)))
                 .addGap(72, 114, Short.MAX_VALUE))
         );
-        jd_eliminarseresLayout.setVerticalGroup(
-            jd_eliminarseresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jd_eliminarseresLayout.createSequentialGroup()
+        jd_modificarseresLayout.setVerticalGroup(
+            jd_modificarseresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_modificarseresLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jd_eliminarseresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jd_modificarseresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton3)
-                    .addComponent(jButton1))
+                    .addComponent(jb_modificar))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
 
@@ -247,13 +259,13 @@ public class Main extends javax.swing.JFrame {
         jMenuItem3.setText("Guardar Universo");
         jMenu1.add(jMenuItem3);
 
-        jmi_Eliminarseres.setText("Eliminar Seres");
-        jmi_Eliminarseres.addActionListener(new java.awt.event.ActionListener() {
+        jmi_Modificarseres.setText("Modificar y Eliminar Seres");
+        jmi_Modificarseres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmi_EliminarseresActionPerformed(evt);
+                jmi_ModificarseresActionPerformed(evt);
             }
         });
-        jMenu1.add(jmi_Eliminarseres);
+        jMenu1.add(jmi_Modificarseres);
 
         jMenuBar1.add(jMenu1);
 
@@ -298,7 +310,8 @@ public class Main extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Universo Creado Exitosamente");
         jd_crearuniverso.dispose();
         jmi_crearUniverso.setEnabled(false);
-        
+        jmi_crearseresi.setEnabled(false);
+
 
     }//GEN-LAST:event_jb_guardaruniversoMouseClicked
 
@@ -315,12 +328,15 @@ public class Main extends javax.swing.JFrame {
         jd_crearser.pack();
         jd_crearser.setLocationRelativeTo(this);
         jd_crearser.setVisible(true);
+        jmi_Modificarseres.setEnabled(true);
 
     }//GEN-LAST:event_jmi_crearseresiActionPerformed
 
     private void jb_crearserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_crearserMouseClicked
-        U.getSv().add(new Seres_vivos(tf_raza.getText(), (Integer)jsp_ki.getValue(),(Integer) jsp_edad.getValue(), tf_planeta.getText()));
+        U.getSv().add(new Seres_vivos(tf_raza.getText(), (Integer) jsp_ki.getValue(), (Integer) jsp_edad.getValue(), tf_planeta.getText()));
         JOptionPane.showMessageDialog(this, "Ser Creado Exitosamente");
+        DefaultListModel modeloseres = (DefaultListModel) jl_seres.getModel();
+        modeloseres.addElement(new Seres_vivos(tf_raza.getText(), (Integer) jsp_ki.getValue(), (Integer) jsp_edad.getValue(), tf_planeta.getText()));
         tf_raza.setText("");
         jsp_edad.setValue(0);
         jsp_ki.setValue(0);
@@ -333,15 +349,36 @@ public class Main extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenu1ActionPerformed
 
-    private void jmi_EliminarseresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_EliminarseresActionPerformed
-      
-        
-        
-        
-        
-        
-        
-    }//GEN-LAST:event_jmi_EliminarseresActionPerformed
+    private void jmi_ModificarseresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_ModificarseresActionPerformed
+
+        jd_modificarseres.setModal(true);
+        jd_modificarseres.pack();
+        jd_modificarseres.setLocationRelativeTo(this);
+        jd_modificarseres.setVisible(true);
+
+
+    }//GEN-LAST:event_jmi_ModificarseresActionPerformed
+
+    private void jb_modificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_modificarMouseClicked
+        DefaultListModel mod = (DefaultListModel) jl_seres.getModel();
+        String nraza = JOptionPane.showInputDialog(this, "Ingrese la nueva raza");
+        int nki = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese el nuevo KI"));
+        int nedad = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese la nueva edad"));
+        String nplaneta = JOptionPane.showInputDialog(this, "ingrese el nuevo planeta");
+        int select = jl_seres.getSelectedIndex();
+        U.getSv().get(select).setEdad(nedad);
+        U.getSv().get(select).setKi(nki);
+        U.getSv().get(select).setRaza(nraza);
+        U.getSv().get(select).setPlaneta(nplaneta);
+
+
+    }//GEN-LAST:event_jb_modificarMouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        DefaultListModel mod = (DefaultListModel) jl_seres.getModel();
+        mod.remove(jl_seres.getSelectedIndex());
+        int select = jl_seres.getSelectedIndex();
+    }//GEN-LAST:event_jButton3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -379,7 +416,6 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -397,11 +433,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jb_crearser;
     private javax.swing.JButton jb_guardaruniverso;
+    private javax.swing.JButton jb_modificar;
     private javax.swing.JDialog jd_crearser;
     private javax.swing.JDialog jd_crearuniverso;
-    private javax.swing.JDialog jd_eliminarseres;
+    private javax.swing.JDialog jd_modificarseres;
     private javax.swing.JList<String> jl_seres;
-    private javax.swing.JMenuItem jmi_Eliminarseres;
+    private javax.swing.JMenuItem jmi_Modificarseres;
     private javax.swing.JMenuItem jmi_crearUniverso;
     private javax.swing.JMenuItem jmi_crearseresi;
     private javax.swing.JSpinner jsp_edad;

@@ -52,7 +52,7 @@ public class Seres_vivos {
 
     @Override
     public String toString() {
-        return "Seres_vivos{" + "raza=" + raza + ", ki=" + ki + ", edad=" + edad + ", planeta=" + planeta + '}';
+        return "raza: " + raza + "\n ki: " + ki +"\n planeta: " + planeta;
     }
     
 }

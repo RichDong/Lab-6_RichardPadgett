@@ -7,6 +7,7 @@ package lab.pkg6_richardpadgett;
 
 import java.io.File;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,6 +23,7 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         jmi_crearseresi.setEnabled(false);
         jmi_Modificarseres.setEnabled(false);
+        
     }
 
     /**
@@ -54,6 +56,9 @@ public class Main extends javax.swing.JFrame {
         jb_modificar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jd_abrirarchivo = new javax.swing.JDialog();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ta_archivo = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -63,6 +68,8 @@ public class Main extends javax.swing.JFrame {
         jmi_crearseresi = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jmi_Modificarseres = new javax.swing.JMenuItem();
+        jmi_salir = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         jLabel3.setText("CREAR UNIVERSO");
 
@@ -224,6 +231,27 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(58, Short.MAX_VALUE))
         );
 
+        ta_archivo.setColumns(20);
+        ta_archivo.setRows(5);
+        jScrollPane2.setViewportView(ta_archivo);
+
+        javax.swing.GroupLayout jd_abrirarchivoLayout = new javax.swing.GroupLayout(jd_abrirarchivo.getContentPane());
+        jd_abrirarchivo.getContentPane().setLayout(jd_abrirarchivoLayout);
+        jd_abrirarchivoLayout.setHorizontalGroup(
+            jd_abrirarchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_abrirarchivoLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
+        jd_abrirarchivoLayout.setVerticalGroup(
+            jd_abrirarchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_abrirarchivoLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("UNIVERSO");
@@ -232,6 +260,11 @@ public class Main extends javax.swing.JFrame {
         jLabel2.setText("jLabel2");
 
         jButton2.setText("Guardar Universo");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         jMenu1.setText("inicio");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
@@ -267,7 +300,18 @@ public class Main extends javax.swing.JFrame {
         });
         jMenu1.add(jmi_Modificarseres);
 
+        jmi_salir.setText("Salir del Universo");
+        jMenu1.add(jmi_salir);
+
         jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Abrir Archivo");
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -278,12 +322,12 @@ public class Main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(jLabel1))
+                        .addGap(50, 50, 50)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addGap(99, 99, 99)
+                        .addComponent(jLabel1)))
+                .addGap(44, 44, 44)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(153, Short.MAX_VALUE))
         );
@@ -292,7 +336,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(164, 164, 164)
+                .addGap(125, 125, 125)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -380,6 +424,18 @@ public class Main extends javax.swing.JFrame {
         int select = jl_seres.getSelectedIndex();
     }//GEN-LAST:event_jButton3MouseClicked
 
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+      
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+    jd_abrirarchivo.setModal(true);
+    jd_abrirarchivo.pack();
+    jd_abrirarchivo.setLocationRelativeTo(this);
+    jd_abrirarchivo.setVisible(true);
+       
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -428,12 +484,15 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jb_crearser;
     private javax.swing.JButton jb_guardaruniverso;
     private javax.swing.JButton jb_modificar;
+    private javax.swing.JDialog jd_abrirarchivo;
     private javax.swing.JDialog jd_crearser;
     private javax.swing.JDialog jd_crearuniverso;
     private javax.swing.JDialog jd_modificarseres;
@@ -441,8 +500,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmi_Modificarseres;
     private javax.swing.JMenuItem jmi_crearUniverso;
     private javax.swing.JMenuItem jmi_crearseresi;
+    private javax.swing.JMenuItem jmi_salir;
     private javax.swing.JSpinner jsp_edad;
     private javax.swing.JSpinner jsp_ki;
+    private javax.swing.JTextArea ta_archivo;
     private javax.swing.JTextField tf_crearuniverso;
     private javax.swing.JTextField tf_planeta;
     private javax.swing.JTextField tf_raza;

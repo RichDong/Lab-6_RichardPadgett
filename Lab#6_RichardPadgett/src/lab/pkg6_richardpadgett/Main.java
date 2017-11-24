@@ -6,6 +6,7 @@
 package lab.pkg6_richardpadgett;
 
 import java.io.File;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -45,6 +46,12 @@ public class Main extends javax.swing.JFrame {
         jb_crearser = new javax.swing.JButton();
         jsp_ki = new javax.swing.JSpinner();
         jsp_edad = new javax.swing.JSpinner();
+        jd_eliminarseres = new javax.swing.JDialog();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jl_seres = new javax.swing.JList<>();
+        jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -53,7 +60,7 @@ public class Main extends javax.swing.JFrame {
         jmi_crearUniverso = new javax.swing.JMenuItem();
         jmi_crearseresi = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jmi_Eliminarseres = new javax.swing.JMenuItem();
 
         jLabel3.setText("CREAR UNIVERSO");
 
@@ -163,6 +170,48 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
+        jl_seres.setModel(new DefaultListModel());
+        jScrollPane1.setViewportView(jl_seres);
+
+        jButton1.setText("Modificar");
+
+        jButton3.setText("Eliminar");
+
+        jLabel5.setText("Lista de Seres");
+
+        javax.swing.GroupLayout jd_eliminarseresLayout = new javax.swing.GroupLayout(jd_eliminarseres.getContentPane());
+        jd_eliminarseres.getContentPane().setLayout(jd_eliminarseresLayout);
+        jd_eliminarseresLayout.setHorizontalGroup(
+            jd_eliminarseresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_eliminarseresLayout.createSequentialGroup()
+                .addGroup(jd_eliminarseresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jd_eliminarseresLayout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jd_eliminarseresLayout.createSequentialGroup()
+                        .addGap(171, 171, 171)
+                        .addComponent(jButton3)
+                        .addGap(46, 46, 46)
+                        .addComponent(jButton1))
+                    .addGroup(jd_eliminarseresLayout.createSequentialGroup()
+                        .addGap(257, 257, 257)
+                        .addComponent(jLabel5)))
+                .addGap(72, 114, Short.MAX_VALUE))
+        );
+        jd_eliminarseresLayout.setVerticalGroup(
+            jd_eliminarseresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_eliminarseresLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jd_eliminarseresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3)
+                    .addComponent(jButton1))
+                .addContainerGap(58, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("UNIVERSO");
@@ -198,8 +247,13 @@ public class Main extends javax.swing.JFrame {
         jMenuItem3.setText("Guardar Universo");
         jMenu1.add(jMenuItem3);
 
-        jMenuItem1.setText("Eliminar Seres");
-        jMenu1.add(jMenuItem1);
+        jmi_Eliminarseres.setText("Eliminar Seres");
+        jmi_Eliminarseres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_EliminarseresActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmi_Eliminarseres);
 
         jMenuBar1.add(jMenu1);
 
@@ -238,11 +292,14 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jb_guardaruniversoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_guardaruniversoMouseClicked
-      
+
         String Nombrearchivo = tf_crearuniverso.getText();
+        U.setNombre(Nombrearchivo);
         JOptionPane.showMessageDialog(this, "Universo Creado Exitosamente");
+        jd_crearuniverso.dispose();
         jmi_crearUniverso.setEnabled(false);
-              
+        
+
     }//GEN-LAST:event_jb_guardaruniversoMouseClicked
 
     private void jmi_crearUniversoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_crearUniversoActionPerformed
@@ -250,7 +307,7 @@ public class Main extends javax.swing.JFrame {
         jd_crearuniverso.pack();
         jd_crearuniverso.setLocationRelativeTo(this);
         jd_crearuniverso.setVisible(true);
-        
+
     }//GEN-LAST:event_jmi_crearUniversoActionPerformed
 
     private void jmi_crearseresiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_crearseresiActionPerformed
@@ -262,20 +319,29 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jmi_crearseresiActionPerformed
 
     private void jb_crearserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_crearserMouseClicked
-    
-        
-        
-        
-        
-        
-        
-        
-        
+        U.getSv().add(new Seres_vivos(tf_raza.getText(), (Integer)jsp_ki.getValue(),(Integer) jsp_edad.getValue(), tf_planeta.getText()));
+        JOptionPane.showMessageDialog(this, "Ser Creado Exitosamente");
+        tf_raza.setText("");
+        jsp_edad.setValue(0);
+        jsp_ki.setValue(0);
+        tf_planeta.setText("");
+
+
     }//GEN-LAST:event_jb_crearserMouseClicked
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-        
+
     }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jmi_EliminarseresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_EliminarseresActionPerformed
+      
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jmi_EliminarseresActionPerformed
 
     /**
      * @param args the command line arguments
@@ -313,23 +379,29 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jb_crearser;
     private javax.swing.JButton jb_guardaruniverso;
     private javax.swing.JDialog jd_crearser;
     private javax.swing.JDialog jd_crearuniverso;
+    private javax.swing.JDialog jd_eliminarseres;
+    private javax.swing.JList<String> jl_seres;
+    private javax.swing.JMenuItem jmi_Eliminarseres;
     private javax.swing.JMenuItem jmi_crearUniverso;
     private javax.swing.JMenuItem jmi_crearseresi;
     private javax.swing.JSpinner jsp_edad;
@@ -338,4 +410,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField tf_planeta;
     private javax.swing.JTextField tf_raza;
     // End of variables declaration//GEN-END:variables
+    Universo U = new Universo();
+
 }

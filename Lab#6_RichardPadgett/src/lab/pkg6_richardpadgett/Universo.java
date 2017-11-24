@@ -95,6 +95,7 @@ public class Universo {
                 bw.write(s.getPlaneta() + "|");
 
             }
+            bw.flush();
         } catch (Exception e) {
         }
     }

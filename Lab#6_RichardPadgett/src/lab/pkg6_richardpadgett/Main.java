@@ -10,6 +10,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -75,6 +77,7 @@ public class Main extends javax.swing.JFrame {
         jmi_Modificarseres = new javax.swing.JMenuItem();
         jmi_salir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         jLabel3.setText("CREAR UNIVERSO");
 
@@ -241,6 +244,11 @@ public class Main extends javax.swing.JFrame {
         jScrollPane2.setViewportView(ta_archivo);
 
         jb_cargar.setText("Cargar Archivo");
+        jb_cargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_cargarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jd_abrirarchivoLayout = new javax.swing.GroupLayout(jd_abrirarchivo.getContentPane());
         jd_abrirarchivo.getContentPane().setLayout(jd_abrirarchivoLayout);
@@ -322,6 +330,15 @@ public class Main extends javax.swing.JFrame {
                 jMenu2ActionPerformed(evt);
             }
         });
+
+        jMenuItem1.setText("ver");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -436,14 +453,14 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jb_guardarUMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_guardarUMouseClicked
-    JFileChooser jfc = new JFileChooser();
-    jfc.setSelectedFile(new File(U.getNombre()+".txt"));
-    int select = jfc.showSaveDialog(this);
+        JFileChooser jfc = new JFileChooser();
+        jfc.setSelectedFile(new File(U.getNombre() + ".txt"));
+        int select = jfc.showSaveDialog(this);
         if (select == JFileChooser.APPROVE_OPTION) {
             File f = jfc.getSelectedFile();
             U.setArchivo(f);
             U.Escribirarchivo();
-            
+
         }
     }//GEN-LAST:event_jb_guardarUMouseClicked
 
@@ -454,6 +471,56 @@ public class Main extends javax.swing.JFrame {
         jd_abrirarchivo.setVisible(true);
 
     }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        jd_abrirarchivo.setModal(true);
+        jd_abrirarchivo.pack();
+        jd_abrirarchivo.setLocationRelativeTo(this);
+        jd_abrirarchivo.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jb_cargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_cargarActionPerformed
+        File fichero = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+
+        try {
+            JFileChooser jfc = new JFileChooser();
+            FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de texto", "txt");
+            jfc.setFileFilter(filtro);
+            int selection = jfc.showOpenDialog(this);
+            if (selection == JFileChooser.APPROVE_OPTION) {
+                fichero = jfc.getSelectedFile();
+                fr = new FileReader(fichero);
+                br = new BufferedReader(fr);
+                String linea;
+                ta_archivo.setText("");
+                Scanner sc = new Scanner(fichero);
+                Scanner sc2;
+                
+                while (sc.hasNext()) {
+                    sc2 = new Scanner(sc.next());
+                    sc2.useDelimiter("\\|");
+                    Seres_vivos temp =new Seres_vivos(sc2.next(),sc2.nextInt(),sc2.nextInt(),sc2.next());
+                    U.getSv().add(temp);
+                    sc2.close();
+                    
+                    ta_archivo.append(temp.toString());
+                    ta_archivo.append("\n");
+                }
+                sc.close();
+            }
+        } catch (Exception e) {
+        }
+        try {
+            br.close();
+            fr.close();
+        } catch (Exception e) {
+        }
+        actualizar();
+        jmi_Modificarseres.setEnabled(true);
+
+    }//GEN-LAST:event_jb_cargarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -488,6 +555,15 @@ public class Main extends javax.swing.JFrame {
                 new Main().setVisible(true);
             }
         });
+       
+    }
+    public void actualizar(){
+        DefaultListModel ml = (DefaultListModel) jl_seres.getModel();
+        ml.setSize(0);
+        for (Seres_vivos seres : U.getSv()) {
+            ml.addElement(seres);
+            System.out.println(seres);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -504,6 +580,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jb_cargar;
